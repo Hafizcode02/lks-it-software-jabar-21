@@ -1,0 +1,27 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+
+namespace SMKRestaurant
+{
+    public partial class ManageMenu : Form
+    {
+        string employeeId;
+        public ManageMenu(String employeeId)
+        {
+            InitializeComponent();
+            this.employeeId = employeeId;
+        }
+
+        private void btnSearch_Click(object sender, EventArgs e)
+        {
+
+        }
+    }
+}
