@@ -61,7 +61,17 @@ namespace SMKRestaurant
 
         private void btnSearch_Click(object sender, EventArgs e)
         {
-
+            dt.Clear();
+            dg.DataSource = dt;
+            dg.Refresh();
+            koneksi.select("SELECT * FROM MsMenu WHERE Name LIKE '%" + txtSearch.Text + "%' or Price LIKE '%" + txtSearch.Text + "%' or Carbo LIKE '%" + txtSearch.Text + "%' or Protein LIKE '%" + txtSearch.Text + "%'");
+            koneksi.adp.Fill(dt);
+            dg.Columns[0].HeaderText = "MenuID";
+            dg.Columns[1].HeaderText = "Name";
+            dg.Columns[2].HeaderText = "Price";
+            dg.Columns[3].Visible = false;
+            dg.Columns[4].HeaderText = "Carbo";
+            dg.Columns[5].HeaderText = "Protein";
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -166,7 +176,7 @@ namespace SMKRestaurant
 
         private void dg_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            if(e.RowIndex >= 0)
+            if (e.RowIndex >= 0)
             {
                 DataGridViewRow row = this.dg.Rows[e.RowIndex];
                 txtMenuID.Text = row.Cells[0].Value.ToString();
@@ -178,7 +188,7 @@ namespace SMKRestaurant
                 pictureBox1.ImageLocation = row.Cells[3].Value.ToString();
                 pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
 
-                if(row.Cells[0].Value.ToString() != "")
+                if (row.Cells[0].Value.ToString() != "")
                 {
                     btnInsert.Enabled = false;
                     btnUpdate.Enabled = true;

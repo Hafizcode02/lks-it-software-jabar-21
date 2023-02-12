@@ -95,6 +95,7 @@
             this.btnToManageMember.TabIndex = 6;
             this.btnToManageMember.Text = "Manage Member";
             this.btnToManageMember.UseVisualStyleBackColor = true;
+            this.btnToManageMember.Click += new System.EventHandler(this.btnToManageMember_Click);
             // 
             // btnLogout
             // 

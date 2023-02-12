@@ -28,6 +28,11 @@ namespace SMKRestaurant
             manageMenuForm.ShowDialog();
         }
 
+        private void btnToManageMember_Click(object sender, EventArgs e)
+        {
+
+        }
+
         private void btnToOrderForm_Click(object sender, EventArgs e)
         {
 
