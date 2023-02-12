@@ -196,5 +196,10 @@ namespace SMKRestaurant
                 }
             }
         }
+
+        private void btnCancel_Click(object sender, EventArgs e)
+        {
+            InitiateRefresh();
+        }
     }
 }
