@@ -61,6 +61,7 @@
             this.txtEmail.Name = "txtEmail";
             this.txtEmail.Size = new System.Drawing.Size(182, 20);
             this.txtEmail.TabIndex = 2;
+            this.txtEmail.Text = "adminpusat@gmail.com";
             // 
             // txtPassword
             // 
@@ -69,6 +70,7 @@
             this.txtPassword.PasswordChar = '*';
             this.txtPassword.Size = new System.Drawing.Size(182, 20);
             this.txtPassword.TabIndex = 4;
+            this.txtPassword.Text = "admin123";
             // 
             // label3
             // 

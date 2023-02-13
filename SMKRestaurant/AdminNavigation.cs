@@ -24,13 +24,22 @@ namespace SMKRestaurant
         private void btnToManageMenu_Click(object sender, EventArgs e)
         {
             ManageMenu manageMenuForm = new ManageMenu(employeeID);
-            //this.Hide();
             manageMenuForm.ShowDialog();
         }
 
         private void btnToManageMember_Click(object sender, EventArgs e)
         {
+            ManageMember manageMember = new ManageMember();
+            manageMember.ShowDialog();
+        }
 
+        private void btnLogout_Click(object sender, EventArgs e)
+        {
+            Login frmLogin = new Login();
+            this.Hide();
+            MessageBox.Show("You Has Been Logged Out");
+            frmLogin.ShowDialog();
+            this.Close();
         }
 
         private void btnToOrderForm_Click(object sender, EventArgs e)
