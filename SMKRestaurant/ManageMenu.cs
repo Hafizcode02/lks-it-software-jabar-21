@@ -11,11 +11,13 @@ namespace SMKRestaurant
         OpenFileDialog ofd = new OpenFileDialog();
         DataTable dt = new DataTable();
         string employeeId;
+        string status = "";
         public ManageMenu(String employeeId)
         {
             InitializeComponent();
             this.employeeId = employeeId;
             InitiateRefresh();
+            status = "";
         }
 
         private void InitiateRefresh()
@@ -28,6 +30,8 @@ namespace SMKRestaurant
             btnInsert.Enabled = true;
             btnUpdate.Enabled = false;
             btnDelete.Enabled = false;
+            btnSave.Visible = false;
+            btnCancel.Visible = false;
         }
 
         private void clearForm()
@@ -40,6 +44,25 @@ namespace SMKRestaurant
             txtProtein.Text = "";
             txtPrice.Text = "";
             pictureBox1.ImageLocation = "";
+
+            txtMenuID.Enabled = false;
+            txtName.Enabled = false;
+            txtPhoto.Enabled = false;
+            txtPrice.Enabled = false;
+            txtCarbo.Enabled = false;
+            btnOpenDialog.Enabled = false;
+            txtProtein.Enabled = false;
+        }
+
+        private void enabledForm()
+        {
+            txtMenuID.Enabled = true;
+            txtName.Enabled = true;
+            txtPhoto.Enabled = true;
+            txtPrice.Enabled = true;
+            txtCarbo.Enabled = true;
+            btnOpenDialog.Enabled = true;
+            txtProtein.Enabled = true;
         }
 
         private void viewDG()
@@ -76,35 +99,10 @@ namespace SMKRestaurant
 
         private void button1_Click(object sender, EventArgs e)
         {
-            try
-            {
-                if ("".Equals(txtName.Text) || "".Equals(txtPrice.Text) || "".Equals(txtCarbo.Text) || "".Equals(txtProtein.Text))
-                {
-                    MessageBox.Show("Please Fill All Column");
-                }
-                else
-                {
-                    if (txtPhoto.Text == "" || pictureBox1.ImageLocation == "" || pictureBox1.Image == null)
-                    {
-                        MessageBox.Show("Please Input The Picture");
-                    }
-                    else
-                    {
-                        koneksi.cud(
-                            "INSERT INTO MsMenu (Name, Price, Photo, Carbo, Protein) VALUES ('" + txtName.Text + "', '" + txtPrice.Text + "', '" + pictureBox1.ImageLocation + "', '" + txtCarbo.Text + "', '" + txtProtein.Text + "')"
-                        );
-                        MessageBox.Show("Insert Data Successfull");
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
-            finally
-            {
-                InitiateRefresh();
-            }
+            status = "Insert";
+            btnSave.Visible = true;
+            btnCancel.Visible = true;
+            enabledForm();
         }
 
         private void btnOpenDialog_Click(object sender, EventArgs e)
@@ -122,35 +120,9 @@ namespace SMKRestaurant
 
         private void btnUpdate_Click(object sender, EventArgs e)
         {
-            try
-            {
-                if ("".Equals(txtName.Text) || "".Equals(txtPrice.Text) || "".Equals(txtCarbo.Text) || "".Equals(txtProtein.Text))
-                {
-                    MessageBox.Show("Please Fill All Column");
-                }
-                else
-                {
-                    if (txtPhoto.Text == "" || pictureBox1.ImageLocation == "" || pictureBox1.Image == null)
-                    {
-                        MessageBox.Show("Please Input The Picture");
-                    }
-                    else
-                    {
-                        koneksi.cud(
-                            "UPDATE MsMenu SET Name = '" + txtName.Text + "', Price = '" + txtPrice.Text + "', Photo = '" + pictureBox1.ImageLocation + "', Carbo = '" + txtCarbo.Text + "', Protein = '" + txtProtein.Text + "' where Id = '" + txtMenuID.Text + "'"
-                        );
-                        MessageBox.Show("Update Data Successfull");
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
-            finally
-            {
-                InitiateRefresh();
-            }
+            status = "Update";
+            btnSave.Visible = true;
+            enabledForm();
         }
 
         private void btnDelete_Click(object sender, EventArgs e)
@@ -193,6 +165,8 @@ namespace SMKRestaurant
                     btnInsert.Enabled = false;
                     btnUpdate.Enabled = true;
                     btnDelete.Enabled = true;
+
+                    btnCancel.Visible = true;
                 }
             }
         }
@@ -200,6 +174,79 @@ namespace SMKRestaurant
         private void btnCancel_Click(object sender, EventArgs e)
         {
             InitiateRefresh();
+        }
+
+        private void btnSave_Click(object sender, EventArgs e)
+        {
+            if (status == "Insert")
+            {
+                try
+                {
+                    if ("".Equals(txtName.Text) || "".Equals(txtPrice.Text) || "".Equals(txtCarbo.Text) || "".Equals(txtProtein.Text))
+                    {
+                        MessageBox.Show("Please Fill All Column");
+                    }
+                    else
+                    {
+                        if (txtPhoto.Text == "" || pictureBox1.ImageLocation == "" || pictureBox1.Image == null)
+                        {
+                            MessageBox.Show("Please Input The Picture");
+                        }
+                        else
+                        {
+                            koneksi.cud(
+                                "INSERT INTO MsMenu (Name, Price, Photo, Carbo, Protein) VALUES ('" + txtName.Text + "', '" + txtPrice.Text + "', '" + pictureBox1.ImageLocation + "', '" + txtCarbo.Text + "', '" + txtProtein.Text + "')"
+                            );
+                            MessageBox.Show("Insert Data Successfull");
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+                finally
+                {
+                    InitiateRefresh();
+                }
+            }
+            else if (status == "Update")
+            {
+                try
+                {
+                    if ("".Equals(txtName.Text) || "".Equals(txtPrice.Text) || "".Equals(txtCarbo.Text) || "".Equals(txtProtein.Text))
+                    {
+                        MessageBox.Show("Please Fill All Column");
+                    }
+                    else
+                    {
+                        if (txtPhoto.Text == "" || pictureBox1.ImageLocation == "" || pictureBox1.Image == null)
+                        {
+                            MessageBox.Show("Please Input The Picture");
+                        }
+                        else
+                        {
+                            koneksi.cud(
+                                "UPDATE MsMenu SET Name = '" + txtName.Text + "', Price = '" + txtPrice.Text + "', Photo = '" + pictureBox1.ImageLocation + "', Carbo = '" + txtCarbo.Text + "', Protein = '" + txtProtein.Text + "' where Id = '" + txtMenuID.Text + "'"
+                            );
+                            MessageBox.Show("Update Data Successfull");
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+                finally
+                {
+                    InitiateRefresh();
+                }
+            }
+            else
+            {
+                MessageBox.Show("Something Wrong");
+            }
+
         }
     }
 }

@@ -62,7 +62,10 @@ namespace SMKRestaurant
 
         private void btnInsert_Click(object sender, EventArgs e)
         {
+            if("".Equals(txtName.Text) || "".Equals(txtEmail.Text) || "".Equals(txtPhone.Text))
+            {
 
+            }
         }
     }
 }
