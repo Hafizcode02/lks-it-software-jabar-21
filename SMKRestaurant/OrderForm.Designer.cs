@@ -40,6 +40,15 @@
             this.labelProtein = new System.Windows.Forms.Label();
             this.btnOrder = new System.Windows.Forms.Button();
             this.labelTotal = new System.Windows.Forms.Label();
+            this.btnAdd = new System.Windows.Forms.Button();
+            this.btnDelete = new System.Windows.Forms.Button();
+            this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column7 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dgMenuList)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgOrderList)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureMenu)).BeginInit();
@@ -62,10 +71,19 @@
             this.dgMenuList.Name = "dgMenuList";
             this.dgMenuList.Size = new System.Drawing.Size(429, 116);
             this.dgMenuList.TabIndex = 2;
+            this.dgMenuList.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgMenuList_CellClick);
             // 
             // dgOrderList
             // 
             this.dgOrderList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgOrderList.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.Column1,
+            this.Column2,
+            this.Column3,
+            this.Column4,
+            this.Column5,
+            this.Column6,
+            this.Column7});
             this.dgOrderList.Location = new System.Drawing.Point(12, 320);
             this.dgOrderList.Name = "dgOrderList";
             this.dgOrderList.Size = new System.Drawing.Size(429, 116);
@@ -90,6 +108,7 @@
             // 
             // txtMenuName
             // 
+            this.txtMenuName.Enabled = false;
             this.txtMenuName.Location = new System.Drawing.Point(313, 207);
             this.txtMenuName.Name = "txtMenuName";
             this.txtMenuName.Size = new System.Drawing.Size(100, 20);
@@ -137,6 +156,7 @@
             this.btnOrder.TabIndex = 11;
             this.btnOrder.Text = "Order";
             this.btnOrder.UseVisualStyleBackColor = true;
+            this.btnOrder.Click += new System.EventHandler(this.btnOrder_Click);
             // 
             // labelTotal
             // 
@@ -147,11 +167,68 @@
             this.labelTotal.TabIndex = 12;
             this.labelTotal.Text = "Total : 0";
             // 
+            // btnAdd
+            // 
+            this.btnAdd.Location = new System.Drawing.Point(249, 279);
+            this.btnAdd.Name = "btnAdd";
+            this.btnAdd.Size = new System.Drawing.Size(75, 23);
+            this.btnAdd.TabIndex = 13;
+            this.btnAdd.Text = "Add";
+            this.btnAdd.UseVisualStyleBackColor = true;
+            this.btnAdd.Click += new System.EventHandler(this.btnAdd_Click);
+            // 
+            // btnDelete
+            // 
+            this.btnDelete.Location = new System.Drawing.Point(330, 279);
+            this.btnDelete.Name = "btnDelete";
+            this.btnDelete.Size = new System.Drawing.Size(75, 23);
+            this.btnDelete.TabIndex = 14;
+            this.btnDelete.Text = "Delete";
+            this.btnDelete.UseVisualStyleBackColor = true;
+            // 
+            // Column1
+            // 
+            this.Column1.HeaderText = "MenuID";
+            this.Column1.Name = "Column1";
+            this.Column1.Visible = false;
+            // 
+            // Column2
+            // 
+            this.Column2.HeaderText = "Menu";
+            this.Column2.Name = "Column2";
+            // 
+            // Column3
+            // 
+            this.Column3.HeaderText = "Qty";
+            this.Column3.Name = "Column3";
+            // 
+            // Column4
+            // 
+            this.Column4.HeaderText = "Carbo";
+            this.Column4.Name = "Column4";
+            // 
+            // Column5
+            // 
+            this.Column5.HeaderText = "Protein";
+            this.Column5.Name = "Column5";
+            // 
+            // Column6
+            // 
+            this.Column6.HeaderText = "Price";
+            this.Column6.Name = "Column6";
+            // 
+            // Column7
+            // 
+            this.Column7.HeaderText = "Total";
+            this.Column7.Name = "Column7";
+            // 
             // OrderForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(458, 494);
+            this.Controls.Add(this.btnDelete);
+            this.Controls.Add(this.btnAdd);
             this.Controls.Add(this.labelTotal);
             this.Controls.Add(this.btnOrder);
             this.Controls.Add(this.labelProtein);
@@ -188,5 +265,14 @@
         private System.Windows.Forms.Label labelProtein;
         private System.Windows.Forms.Button btnOrder;
         private System.Windows.Forms.Label labelTotal;
+        private System.Windows.Forms.Button btnAdd;
+        private System.Windows.Forms.Button btnDelete;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column2;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column3;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column4;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column5;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column6;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column7;
     }
 }

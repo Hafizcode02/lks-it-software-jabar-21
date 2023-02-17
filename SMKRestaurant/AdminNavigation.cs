@@ -1,11 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace SMKRestaurant
@@ -44,7 +37,8 @@ namespace SMKRestaurant
 
         private void btnToOrderForm_Click(object sender, EventArgs e)
         {
-
+            OrderForm order = new OrderForm(employeeID);
+            order.ShowDialog();
         }
     }
 }
