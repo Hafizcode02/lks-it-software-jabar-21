@@ -49,6 +49,7 @@
             this.Column5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column7 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column8 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dgMenuList)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgOrderList)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureMenu)).BeginInit();
@@ -83,11 +84,13 @@
             this.Column4,
             this.Column5,
             this.Column6,
-            this.Column7});
+            this.Column7,
+            this.Column8});
             this.dgOrderList.Location = new System.Drawing.Point(12, 320);
             this.dgOrderList.Name = "dgOrderList";
             this.dgOrderList.Size = new System.Drawing.Size(429, 116);
             this.dgOrderList.TabIndex = 3;
+            this.dgOrderList.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgOrderList_CellClick);
             // 
             // pictureMenu
             // 
@@ -185,6 +188,7 @@
             this.btnDelete.TabIndex = 14;
             this.btnDelete.Text = "Delete";
             this.btnDelete.UseVisualStyleBackColor = true;
+            this.btnDelete.Click += new System.EventHandler(this.btnDelete_Click);
             // 
             // Column1
             // 
@@ -221,6 +225,12 @@
             // 
             this.Column7.HeaderText = "Total";
             this.Column7.Name = "Column7";
+            // 
+            // Column8
+            // 
+            this.Column8.HeaderText = "Photo";
+            this.Column8.Name = "Column8";
+            this.Column8.Visible = false;
             // 
             // OrderForm
             // 
@@ -274,5 +284,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Column5;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column6;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column7;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column8;
     }
 }

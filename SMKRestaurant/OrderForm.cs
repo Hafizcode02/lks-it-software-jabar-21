@@ -11,13 +11,32 @@ namespace SMKRestaurant
         DataTable dt = new DataTable(); // DG Menu
         DataTable dt2 = new DataTable(); // DG Order List
         DataTable dt3 = new DataTable(); // Temporary DT
-        int MenuID = 0;
+        int MenuID, rowIndexDeleted = 0;
         bool equalStatus = false;
+        int carboSum, proteinSum, totalSum = 0;
         public OrderForm(String employeeID)
         {
             InitializeComponent();
             this.employeeID = employeeID;
             viewDGMenu();
+            RefreshLabel();
+
+            btnAdd.Enabled = false;
+            btnDelete.Enabled = false;
+        }
+
+        private void RefreshLabel()
+        {
+            labelCarbo.Text = "Carbo : " + carboSum;
+            labelProtein.Text = "Protein : " + proteinSum;
+            labelTotal.Text = "Total : " + totalSum;
+
+            txtMenuName.Clear();
+            txtQty.Clear();
+            pictureMenu.ImageLocation = "";
+
+            btnAdd.Enabled = false;
+            btnDelete.Enabled = false;
         }
 
         private void viewDGMenu()
@@ -42,6 +61,41 @@ namespace SMKRestaurant
 
         }
 
+        private void dgOrderList_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex >= 0)
+            {
+                DataGridViewRow row = this.dgOrderList.Rows[e.RowIndex];
+                if (row.Cells[0].Value != null)
+                {
+                    MenuID = Int32.Parse(row.Cells[0].Value.ToString());
+                    txtMenuName.Text = row.Cells[1].Value.ToString();
+                    txtQty.Text = row.Cells[2].Value.ToString();
+                    pictureMenu.ImageLocation = row.Cells[7].Value.ToString();
+                    pictureMenu.SizeMode = PictureBoxSizeMode.StretchImage;
+
+                    btnAdd.Enabled = true;
+                    btnDelete.Enabled = true;
+                }
+
+
+            }
+        }
+
+        private void btnDelete_Click(object sender, EventArgs e)
+        {
+            DataGridViewRow row = this.dgOrderList.Rows[rowIndexDeleted];
+            MessageBox.Show(rowIndexDeleted.ToString());
+
+            carboSum -= (int.Parse(row.Cells[2].Value.ToString()) * int.Parse(row.Cells[3].Value.ToString()));
+            proteinSum -= (int.Parse(row.Cells[2].Value.ToString()) * int.Parse(row.Cells[4].Value.ToString()));
+            totalSum -= int.Parse(row.Cells[6].Value.ToString());
+
+            dgOrderList.Rows.Remove(row);
+
+            RefreshLabel();
+        }
+
         private void btnAdd_Click(object sender, EventArgs e)
         {
             try
@@ -50,6 +104,7 @@ namespace SMKRestaurant
                 {
                     dt3.Clear(); // Clear Datatable
                     koneksi.select("SELECT * FROM MsMenu WHERE Id='" + MenuID + "'"); // Get Data
+
                     koneksi.adp.Fill(dt3);
 
                     if (dt3.Rows.Count != 0) // Checking Not 0
@@ -72,8 +127,19 @@ namespace SMKRestaurant
                             if (row.Cells["Column1"].Value.ToString() == dtr[0].ToString())
                             {
                                 equalStatus = true;
+
+                                // min sum
+                                carboSum -= (int.Parse(row.Cells[2].Value.ToString()) * int.Parse(dtr[4].ToString()));
+                                proteinSum -= (int.Parse(row.Cells[2].Value.ToString()) * int.Parse(dtr[5].ToString()));
+                                totalSum -= int.Parse(row.Cells[6].Value.ToString());
+
                                 row.Cells[2].Value = txtQty.Text;
                                 row.Cells[6].Value = price;
+
+                                // plus sum again
+                                carboSum += (int.Parse(row.Cells[2].Value.ToString()) * int.Parse(dtr[4].ToString()));
+                                proteinSum += (int.Parse(row.Cells[2].Value.ToString()) * int.Parse(dtr[5].ToString()));
+                                totalSum += int.Parse(row.Cells[6].Value.ToString());
 
                                 break;
                             } // Give status = false
@@ -87,16 +153,25 @@ namespace SMKRestaurant
 
                         if (equalStatus == false) // add new row, if not find equal data on order list
                         {
-                            dgOrderList.Rows.Add(
-                                dtr[0].ToString(),
-                                dtr[1].ToString(),
-                                txtQty.Text,
-                                dtr[4].ToString(),
-                                dtr[5].ToString(),
-                                dtr[2].ToString(),
-                                price
-                            );
+                            if ((dgOrderList.RowCount - 1) < dt.Rows.Count) // for restrict add new menu over sum of menu list
+                            {
+                                dgOrderList.Rows.Add(
+                                    dtr[0].ToString(),
+                                    dtr[1].ToString(),
+                                    txtQty.Text,
+                                    dtr[4].ToString(),
+                                    dtr[5].ToString(),
+                                    dtr[2].ToString(),
+                                    price,
+                                    dtr[3].ToString()
+                                );
+                                carboSum += (int.Parse(txtQty.Text.ToString()) * int.Parse(dtr[4].ToString()));
+                                proteinSum += (int.Parse(txtQty.Text.ToString()) * int.Parse(dtr[5].ToString()));
+                                totalSum += price;
+                            }
                         }
+
+                        equalStatus = true; // reset equal status
 
                     }
                 }
@@ -107,7 +182,7 @@ namespace SMKRestaurant
             }
             finally
             {
-
+                RefreshLabel();
             }
 
         }
@@ -117,10 +192,27 @@ namespace SMKRestaurant
             if (e.RowIndex >= 0)
             {
                 DataGridViewRow row = this.dgMenuList.Rows[e.RowIndex];
-                MenuID = Int32.Parse(row.Cells[0].Value.ToString());
-                txtMenuName.Text = row.Cells[1].Value.ToString();
-                pictureMenu.ImageLocation = row.Cells[3].Value.ToString();
-                pictureMenu.SizeMode = PictureBoxSizeMode.StretchImage;
+
+                if (row.Cells[0].Value != null)
+                {
+                    MenuID = Int32.Parse(row.Cells[0].Value.ToString());
+                    txtMenuName.Text = row.Cells[1].Value.ToString();
+                    pictureMenu.ImageLocation = row.Cells[3].Value.ToString();
+                    pictureMenu.SizeMode = PictureBoxSizeMode.StretchImage;
+
+                    btnAdd.Enabled = true;
+                    btnDelete.Enabled = false;
+                }
+
+                rowIndexDeleted = e.RowIndex; // Ada Problem disini, nanti di cari lebih lanjut aja. tapi hapusnya bisa, di kondisi tertentu error
+                if (e.RowIndex > 0)
+                {
+                    if (dgOrderList.RowCount <= 2)
+                    {
+                        rowIndexDeleted -= 1;
+                    }
+                }
+
             }
         }
     }
