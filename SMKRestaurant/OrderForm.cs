@@ -14,6 +14,7 @@ namespace SMKRestaurant
         int MenuID, rowIndexDeleted = 0;
         bool equalStatus = false;
         int carboSum, proteinSum, totalSum = 0;
+        Int64 countID = 0;
         public OrderForm(String employeeID)
         {
             InitializeComponent();
@@ -23,6 +24,24 @@ namespace SMKRestaurant
 
             btnAdd.Enabled = false;
             btnDelete.Enabled = false;
+        }
+
+        private string autoID()
+        {
+            DataTable dtID = new DataTable();
+            koneksi.select("SELECT count(*) FROM OrderHeader");
+            koneksi.adp.Fill(dtID);
+
+            foreach (DataRow dtr in dtID.Rows)
+            {
+                countID = 1000 + Int64.Parse(dtr[0].ToString());
+            }
+
+            DateTime date = DateTime.UtcNow.Date;
+            //countID = 1000 + dtID.Rows.Count;
+            string generateId = date.ToString("yyyy") + date.ToString("MM") + date.ToString("dd") + countID.ToString();
+
+            return generateId.Trim();
         }
 
         private void RefreshLabel()
@@ -38,6 +57,20 @@ namespace SMKRestaurant
             btnAdd.Enabled = false;
             btnDelete.Enabled = false;
         }
+
+        private void refreshAll()
+        {
+            carboSum = 0;
+            proteinSum = 0;
+            totalSum = 0;
+            countID = 0;
+            equalStatus = false;
+
+            RefreshLabel();
+            dgOrderList.Rows.Clear();
+            dgOrderList.Refresh();
+        }
+
 
         private void viewDGMenu()
         {
@@ -58,7 +91,46 @@ namespace SMKRestaurant
 
         private void btnOrder_Click(object sender, EventArgs e)
         {
+            try
+            {
+                string orderID = autoID();
 
+                if (dgOrderList.RowCount > 1)
+                {
+                    koneksi.cud("INSERT INTO OrderHeader (Id) VALUES (" + orderID + ")");
+
+                    int maxCount = dgOrderList.RowCount; // Max Iteration in DataGridView
+                    int count = 0;
+                    string status = "served";
+
+                    foreach (DataGridViewRow row in dgOrderList.Rows)
+                    {
+                        count += 1;
+                        if (count == maxCount) // This Line is Important, because Datagridview also read a last row, which is empty row
+                        {
+                            break;
+                        }
+
+                        koneksi.select("SELECT * FROM OrderDetail");
+                        // Ini ada Id karena kebetulan di db saya Id nya ngga auto increment, nanti kalo kamu hapus aja pake yang biasa.
+                        koneksi.cud("INSERT INTO OrderDetail (Id, OrderId, MenuId, Qty, Status) VALUES('" + (koneksi.dt.Rows.Count + 1) + "','" + orderID + "',  '" + row.Cells[0].Value.ToString() + "', '" + row.Cells[2].Value.ToString() + "', '" + status + "')");
+                    }
+
+                    MessageBox.Show("Insert Order Successfully");
+                }
+                else
+                {
+                    MessageBox.Show("Harap Isi Order List");
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            finally
+            {
+                refreshAll();
+            }
         }
 
         private void dgOrderList_CellClick(object sender, DataGridViewCellEventArgs e)
@@ -85,7 +157,6 @@ namespace SMKRestaurant
         private void btnDelete_Click(object sender, EventArgs e)
         {
             DataGridViewRow row = this.dgOrderList.Rows[rowIndexDeleted];
-            MessageBox.Show(rowIndexDeleted.ToString());
 
             carboSum -= (int.Parse(row.Cells[2].Value.ToString()) * int.Parse(row.Cells[3].Value.ToString()));
             proteinSum -= (int.Parse(row.Cells[2].Value.ToString()) * int.Parse(row.Cells[4].Value.ToString()));
@@ -170,8 +241,6 @@ namespace SMKRestaurant
                                 totalSum += price;
                             }
                         }
-
-                        equalStatus = true; // reset equal status
 
                     }
                 }
