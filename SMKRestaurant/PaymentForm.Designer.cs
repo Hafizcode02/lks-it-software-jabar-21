@@ -34,12 +34,14 @@
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.label3 = new System.Windows.Forms.Label();
             this.txtCardNumber = new System.Windows.Forms.TextBox();
-            this.label4 = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
+            this.labelCardNumber = new System.Windows.Forms.Label();
+            this.labelBank = new System.Windows.Forms.Label();
             this.btnSave = new System.Windows.Forms.Button();
             this.cbPaymentType = new System.Windows.Forms.ComboBox();
             this.cbBankName = new System.Windows.Forms.ComboBox();
             this.labelTotal = new System.Windows.Forms.Label();
+            this.txtHarga = new System.Windows.Forms.TextBox();
+            this.labelInputHarga = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -69,6 +71,7 @@
             this.cbOrderID.Name = "cbOrderID";
             this.cbOrderID.Size = new System.Drawing.Size(148, 21);
             this.cbOrderID.TabIndex = 8;
+            this.cbOrderID.SelectedIndexChanged += new System.EventHandler(this.cbOrderID_SelectedIndexChanged);
             // 
             // dataGridView1
             // 
@@ -94,32 +97,33 @@
             this.txtCardNumber.Size = new System.Drawing.Size(127, 20);
             this.txtCardNumber.TabIndex = 13;
             // 
-            // label4
+            // labelCardNumber
             // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(45, 319);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(69, 13);
-            this.label4.TabIndex = 12;
-            this.label4.Text = "Card Number";
+            this.labelCardNumber.AutoSize = true;
+            this.labelCardNumber.Location = new System.Drawing.Point(45, 319);
+            this.labelCardNumber.Name = "labelCardNumber";
+            this.labelCardNumber.Size = new System.Drawing.Size(69, 13);
+            this.labelCardNumber.TabIndex = 12;
+            this.labelCardNumber.Text = "Card Number";
             // 
-            // label5
+            // labelBank
             // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(45, 349);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(63, 13);
-            this.label5.TabIndex = 14;
-            this.label5.Text = "Bank Name";
+            this.labelBank.AutoSize = true;
+            this.labelBank.Location = new System.Drawing.Point(45, 349);
+            this.labelBank.Name = "labelBank";
+            this.labelBank.Size = new System.Drawing.Size(63, 13);
+            this.labelBank.TabIndex = 14;
+            this.labelBank.Text = "Bank Name";
             // 
             // btnSave
             // 
-            this.btnSave.Location = new System.Drawing.Point(174, 395);
+            this.btnSave.Location = new System.Drawing.Point(174, 384);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(75, 23);
             this.btnSave.TabIndex = 16;
             this.btnSave.Text = "Save";
             this.btnSave.UseVisualStyleBackColor = true;
+            this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
             // 
             // cbPaymentType
             // 
@@ -128,6 +132,7 @@
             this.cbPaymentType.Name = "cbPaymentType";
             this.cbPaymentType.Size = new System.Drawing.Size(127, 21);
             this.cbPaymentType.TabIndex = 17;
+            this.cbPaymentType.SelectedIndexChanged += new System.EventHandler(this.cbPaymentType_SelectedIndexChanged);
             // 
             // cbBankName
             // 
@@ -146,18 +151,36 @@
             this.labelTotal.TabIndex = 19;
             this.labelTotal.Text = "Total : 0";
             // 
+            // txtHarga
+            // 
+            this.txtHarga.Location = new System.Drawing.Point(128, 315);
+            this.txtHarga.Name = "txtHarga";
+            this.txtHarga.Size = new System.Drawing.Size(127, 20);
+            this.txtHarga.TabIndex = 21;
+            // 
+            // labelInputHarga
+            // 
+            this.labelInputHarga.AutoSize = true;
+            this.labelInputHarga.Location = new System.Drawing.Point(45, 319);
+            this.labelInputHarga.Name = "labelInputHarga";
+            this.labelInputHarga.Size = new System.Drawing.Size(63, 13);
+            this.labelInputHarga.TabIndex = 20;
+            this.labelInputHarga.Text = "Input Harga";
+            // 
             // PaymentForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(437, 430);
+            this.ClientSize = new System.Drawing.Size(437, 454);
+            this.Controls.Add(this.txtHarga);
+            this.Controls.Add(this.labelInputHarga);
             this.Controls.Add(this.labelTotal);
             this.Controls.Add(this.cbBankName);
             this.Controls.Add(this.cbPaymentType);
             this.Controls.Add(this.btnSave);
-            this.Controls.Add(this.label5);
+            this.Controls.Add(this.labelBank);
             this.Controls.Add(this.txtCardNumber);
-            this.Controls.Add(this.label4);
+            this.Controls.Add(this.labelCardNumber);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.dataGridView1);
             this.Controls.Add(this.cbOrderID);
@@ -165,6 +188,7 @@
             this.Controls.Add(this.label1);
             this.Name = "PaymentForm";
             this.Text = "PaymentForm";
+            this.Load += new System.EventHandler(this.PaymentForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -179,11 +203,13 @@
         private System.Windows.Forms.DataGridView dataGridView1;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.TextBox txtCardNumber;
-        private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label labelCardNumber;
+        private System.Windows.Forms.Label labelBank;
         private System.Windows.Forms.Button btnSave;
         private System.Windows.Forms.ComboBox cbPaymentType;
         private System.Windows.Forms.ComboBox cbBankName;
         private System.Windows.Forms.Label labelTotal;
+        private System.Windows.Forms.TextBox txtHarga;
+        private System.Windows.Forms.Label labelInputHarga;
     }
 }

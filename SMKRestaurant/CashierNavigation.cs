@@ -23,7 +23,8 @@ namespace SMKRestaurant
 
         private void btnToPayment_Click(object sender, EventArgs e)
         {
-
+            PaymentForm frmPay = new PaymentForm(employeeID);
+            frmPay.ShowDialog();
         }
     }
 }
