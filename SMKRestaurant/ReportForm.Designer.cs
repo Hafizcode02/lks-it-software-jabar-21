@@ -32,13 +32,13 @@
             System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
             System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.label1 = new System.Windows.Forms.Label();
-            this.cbBankName = new System.Windows.Forms.ComboBox();
-            this.cbPaymentType = new System.Windows.Forms.ComboBox();
             this.label5 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.btnSave = new System.Windows.Forms.Button();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.chart1 = new System.Windows.Forms.DataVisualization.Charting.Chart();
+            this.dtPicker1 = new System.Windows.Forms.DateTimePicker();
+            this.dtPicker2 = new System.Windows.Forms.DateTimePicker();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.chart1)).BeginInit();
             this.SuspendLayout();
@@ -53,39 +53,23 @@
             this.label1.TabIndex = 3;
             this.label1.Text = "Form Report";
             // 
-            // cbBankName
-            // 
-            this.cbBankName.FormattingEnabled = true;
-            this.cbBankName.Location = new System.Drawing.Point(127, 105);
-            this.cbBankName.Name = "cbBankName";
-            this.cbBankName.Size = new System.Drawing.Size(127, 21);
-            this.cbBankName.TabIndex = 22;
-            // 
-            // cbPaymentType
-            // 
-            this.cbPaymentType.FormattingEnabled = true;
-            this.cbPaymentType.Location = new System.Drawing.Point(127, 68);
-            this.cbPaymentType.Name = "cbPaymentType";
-            this.cbPaymentType.Size = new System.Drawing.Size(127, 21);
-            this.cbPaymentType.TabIndex = 21;
-            // 
             // label5
             // 
             this.label5.AutoSize = true;
             this.label5.Location = new System.Drawing.Point(44, 108);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(63, 13);
+            this.label5.Size = new System.Drawing.Size(20, 13);
             this.label5.TabIndex = 20;
-            this.label5.Text = "Bank Name";
+            this.label5.Text = "To";
             // 
             // label3
             // 
             this.label3.AutoSize = true;
             this.label3.Location = new System.Drawing.Point(44, 71);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(75, 13);
+            this.label3.Size = new System.Drawing.Size(30, 13);
             this.label3.TabIndex = 19;
-            this.label3.Text = "Payment Type";
+            this.label3.Text = "From";
             // 
             // btnSave
             // 
@@ -95,6 +79,7 @@
             this.btnSave.TabIndex = 23;
             this.btnSave.Text = "Generate";
             this.btnSave.UseVisualStyleBackColor = true;
+            this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
             // 
             // dataGridView1
             // 
@@ -120,16 +105,32 @@
             this.chart1.TabIndex = 25;
             this.chart1.Text = "chart1";
             // 
+            // dtPicker1
+            // 
+            this.dtPicker1.CustomFormat = "MM";
+            this.dtPicker1.Location = new System.Drawing.Point(127, 68);
+            this.dtPicker1.Name = "dtPicker1";
+            this.dtPicker1.Size = new System.Drawing.Size(137, 20);
+            this.dtPicker1.TabIndex = 26;
+            // 
+            // dtPicker2
+            // 
+            this.dtPicker2.CustomFormat = "MM";
+            this.dtPicker2.Location = new System.Drawing.Point(127, 106);
+            this.dtPicker2.Name = "dtPicker2";
+            this.dtPicker2.Size = new System.Drawing.Size(137, 20);
+            this.dtPicker2.TabIndex = 27;
+            // 
             // ReportForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(422, 511);
+            this.Controls.Add(this.dtPicker2);
+            this.Controls.Add(this.dtPicker1);
             this.Controls.Add(this.chart1);
             this.Controls.Add(this.dataGridView1);
             this.Controls.Add(this.btnSave);
-            this.Controls.Add(this.cbBankName);
-            this.Controls.Add(this.cbPaymentType);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label1);
@@ -145,12 +146,12 @@
         #endregion
 
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.ComboBox cbBankName;
-        private System.Windows.Forms.ComboBox cbPaymentType;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Button btnSave;
         private System.Windows.Forms.DataGridView dataGridView1;
         private System.Windows.Forms.DataVisualization.Charting.Chart chart1;
+        private System.Windows.Forms.DateTimePicker dtPicker1;
+        private System.Windows.Forms.DateTimePicker dtPicker2;
     }
 }

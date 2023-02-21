@@ -35,6 +35,7 @@
             this.btnToManageMenu = new System.Windows.Forms.Button();
             this.btnToManageMember = new System.Windows.Forms.Button();
             this.btnLogout = new System.Windows.Forms.Button();
+            this.btnManageReport = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // label1
@@ -99,7 +100,7 @@
             // 
             // btnLogout
             // 
-            this.btnLogout.Location = new System.Drawing.Point(97, 218);
+            this.btnLogout.Location = new System.Drawing.Point(97, 258);
             this.btnLogout.Name = "btnLogout";
             this.btnLogout.Size = new System.Drawing.Size(148, 34);
             this.btnLogout.TabIndex = 7;
@@ -107,11 +108,22 @@
             this.btnLogout.UseVisualStyleBackColor = true;
             this.btnLogout.Click += new System.EventHandler(this.btnLogout_Click);
             // 
+            // btnManageReport
+            // 
+            this.btnManageReport.Location = new System.Drawing.Point(97, 218);
+            this.btnManageReport.Name = "btnManageReport";
+            this.btnManageReport.Size = new System.Drawing.Size(148, 34);
+            this.btnManageReport.TabIndex = 8;
+            this.btnManageReport.Text = "Manage Report";
+            this.btnManageReport.UseVisualStyleBackColor = true;
+            this.btnManageReport.Click += new System.EventHandler(this.btnManageReport_Click);
+            // 
             // AdminNavigation
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(360, 285);
+            this.ClientSize = new System.Drawing.Size(360, 348);
+            this.Controls.Add(this.btnManageReport);
             this.Controls.Add(this.btnLogout);
             this.Controls.Add(this.btnToManageMember);
             this.Controls.Add(this.btnToManageMenu);
@@ -135,5 +147,6 @@
         private System.Windows.Forms.Button btnToManageMenu;
         private System.Windows.Forms.Button btnToManageMember;
         private System.Windows.Forms.Button btnLogout;
+        private System.Windows.Forms.Button btnManageReport;
     }
 }

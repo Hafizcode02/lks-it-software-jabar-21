@@ -35,6 +35,12 @@ namespace SMKRestaurant
             this.Close();
         }
 
+        private void btnManageReport_Click(object sender, EventArgs e)
+        {
+            ReportForm formReport = new ReportForm();
+            formReport.ShowDialog();
+        }
+
         private void btnToOrderForm_Click(object sender, EventArgs e)
         {
             OrderForm order = new OrderForm(employeeID);

@@ -15,6 +15,19 @@ namespace SMKRestaurant
         public ReportForm()
         {
             InitializeComponent();
+
+            dtPicker1.Format = DateTimePickerFormat.Custom;
+            dtPicker1.CustomFormat = "MMMM";
+            dtPicker1.ShowUpDown = true;
+
+            dtPicker2.Format = DateTimePickerFormat.Custom;
+            dtPicker2.CustomFormat = "MMMM";
+            dtPicker2.ShowUpDown = true;
+        }
+
+        private void btnSave_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
