@@ -21,6 +21,15 @@ namespace SMKRestaurant
             labelCashier.Text = employeeName;
         }
 
+        private void btnLogout_Click(object sender, EventArgs e)
+        {
+            Login frmLogin = new Login();
+            this.Hide();
+            MessageBox.Show("You Has Been Logged Out");
+            frmLogin.ShowDialog();
+            this.Close();
+        }
+
         private void btnToPayment_Click(object sender, EventArgs e)
         {
             PaymentForm frmPay = new PaymentForm(employeeID);
