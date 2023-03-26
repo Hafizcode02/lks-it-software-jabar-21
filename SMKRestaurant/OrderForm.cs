@@ -138,7 +138,7 @@ namespace SMKRestaurant
             if (e.RowIndex >= 0)
             {
                 DataGridViewRow row = this.dgOrderList.Rows[e.RowIndex];
-                if (row.Cells[0].Value != null)
+                if (row.Cells[0].Value.ToString() != "")
                 {
                     MenuID = Int32.Parse(row.Cells[0].Value.ToString());
                     txtMenuName.Text = row.Cells[1].Value.ToString();
@@ -262,7 +262,7 @@ namespace SMKRestaurant
             {
                 DataGridViewRow row = this.dgMenuList.Rows[e.RowIndex];
 
-                if (row.Cells[0].Value != null)
+                if (row.Cells[0].Value.ToString() != "")
                 {
                     MenuID = Int32.Parse(row.Cells[0].Value.ToString());
                     txtMenuName.Text = row.Cells[1].Value.ToString();
